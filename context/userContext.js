@@ -316,11 +316,12 @@ export const UserContextProvider = ({ children }) => {
         userLoginStatus,
         user,
         updateUser,
+        verifyUser,
         forgotPasswordEmail,
         changePassword,
         allUsers,
         deleteUser,
-        loading,
+        loading
       }}
     >
       {children}
