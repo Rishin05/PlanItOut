@@ -182,7 +182,31 @@ export const UserContextProvider = ({ children }) => {
   
 
   // verify user/email
-  
+  const verifyUser = async (token) => {
+    setLoading(true);
+    try {
+      const res = await axios.post(
+        `${serverUrl}/api/v1/verify-user/${token}`,
+        {},
+        {
+          withCredentials: true, // send cookies to the server
+        }
+      );
+
+      toast.success("User verified successfully");
+
+      // refresh the user details
+      getUser();
+
+      setLoading(false);
+      // redirect to home page
+      router.push("/");
+    } catch (error) {
+      console.log("Error verifying user", error);
+      toast.error(error.response.data.message);
+      setLoading(false);
+    }
+  };
 
   // forgot password email
   const forgotPasswordEmail = async (email) => {
