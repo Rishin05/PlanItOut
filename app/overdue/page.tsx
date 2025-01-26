@@ -6,11 +6,19 @@ import { Task } from "@/utils/types";
 import { filteredTasks, overdueTasks } from "@/utils/utilities";
 import Filters from "../Components/filters/Filters";
 import TaskItem from "../Components/taskItem/TaskItem";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { container, item } from "@/utils/animations";
 
 export default function Home() {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) return null;
+
   useRedirect("/login");
 
   const { openModelForAdd, priority , tasks, setPriority} = useTasks();
