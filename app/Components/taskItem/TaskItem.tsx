@@ -52,7 +52,12 @@ function TaskItem({ task }: TaskItemProps) {
               openModelForEdit(task);
             }}
             >{edit}</button>
-            <button className="text-[#2C2C2C]">{trash}</button>
+          <button
+            className="text-[#2C2C2C]"
+            onClick={() => deleteTask(task._id)}
+          >
+            {trash}
+          </button>
           </div>
         </div>
       </div>

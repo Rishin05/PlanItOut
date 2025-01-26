@@ -320,7 +320,7 @@ export const UserContextProvider = ({ children }) => {
   };
 
   // dynamic form handler
-  const handlerUserInput = (name) => (e) => {
+  const handleUserInput = (name) => (e) => {
     const value = e.target.value;
 
     setUserState((prevState) => ({
@@ -375,7 +375,7 @@ export const UserContextProvider = ({ children }) => {
       value={{
         registerUser,
         userState,
-        handlerUserInput,
+        handleUserInput,
         loginUser,
         logoutUser,
         userLoginStatus,
