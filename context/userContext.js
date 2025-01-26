@@ -119,6 +119,8 @@ export const UserContextProvider = ({ children }) => {
 
       toast.success("User logged out successfully");
 
+      setUser({});
+
       // redirect to login page
       router.push("/login");
     } catch (error) {
@@ -179,7 +181,25 @@ export const UserContextProvider = ({ children }) => {
   };
 
   // email verification
-  
+  const emailVerification = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.post(
+        `${serverUrl}/api/v1/verify-email`,
+        {},
+        {
+          withCredentials: true, // send cookies to the server
+        }
+      );
+
+      toast.success("Email verification sent successfully");
+      setLoading(false);
+    } catch (error) {
+      console.log("Error sending email verification", error);
+      setLoading(false);
+      toast.error(error.response.data.message);
+    }
+  };
 
   // verify user/email
   const verifyUser = async (token) => {
@@ -233,7 +253,30 @@ export const UserContextProvider = ({ children }) => {
   };
 
   // reset password
+  const resetPassword = async (token, password) => {
+    setLoading(true);
 
+    try {
+      const res = await axios.post(
+        `${serverUrl}/api/v1/reset-password/${token}`,
+        {
+          password,
+        },
+        {
+          withCredentials: true, // send cookies to the server
+        }
+      );
+
+      toast.success("Password reset successfully");
+      setLoading(false);
+      // redirect to login page
+      router.push("/login");
+    } catch (error) {
+      console.log("Error resetting password", error);
+      toast.error(error.response.data.message);
+      setLoading(false);
+    }
+  };
 
   // change password
   const changePassword = async (currentPassword, newPassword) => {
@@ -279,7 +322,7 @@ export const UserContextProvider = ({ children }) => {
   };
 
   // dynamic form handler
-  const handleUserInput = (name) => (e) => {
+  const handlerUserInput = (name) => (e) => {
     const value = e.target.value;
 
     setUserState((prevState) => ({
@@ -334,18 +377,19 @@ export const UserContextProvider = ({ children }) => {
       value={{
         registerUser,
         userState,
-        handleUserInput,
+        handlerUserInput,
         loginUser,
         logoutUser,
         userLoginStatus,
         user,
         updateUser,
+        emailVerification,
         verifyUser,
         forgotPasswordEmail,
+        resetPassword,
         changePassword,
         allUsers,
         deleteUser,
-        loading
       }}
     >
       {children}
