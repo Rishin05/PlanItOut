@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 const TaskContext = createContext();
 
 export const TasksProvider = ({ children }) => {
-  const serverUrl = "http://localhost:8000/api/v1";
+  const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:8000/api/v1";
 
   const userId = useUserContext().user._id;
   const [tasks, setTasks] = React.useState([]);
