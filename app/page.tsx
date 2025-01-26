@@ -6,13 +6,19 @@ import Filters from "./Components/filters/Filters";
 import TaskItem from "./Components/taskItem/TaskItem";
 import { Task } from "@/utils/types";
 import { filteredTasks } from "@/utils/utilities";
+import { useEffect } from "react";
 
 export default function Home() {
   useRedirect("/login");
 
-  const { tasks, openModelForAdd, priority } = useTasks();
+  const { tasks, openModelForAdd, priority, setPriority } = useTasks();
   
   const filtered = filteredTasks(tasks, priority);
+
+    useEffect(() => {
+      setPriority("all");
+    }, []);
+  
 
   return (
     <main className="m-6 h-full">

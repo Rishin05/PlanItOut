@@ -2,12 +2,14 @@
 
 import { useTasks } from "@/context/taskContext";
 import { useUserContext } from "@/context/userContext";
+import { overdueTasks } from "@/utils/utilities";
 import Image from "next/image";
 import React from "react";
 
 function Profile() {
   const { user } = useUserContext();
   const {tasks, completedTasks, pendingTasks} = useTasks();
+  const overdue = overdueTasks(tasks);
 
   return (
     <div className="m-6">
@@ -56,10 +58,10 @@ function Profile() {
             </p>
           </div>
           <div className="text-gray-500">
-            <p>Open Tasks:</p>
+            <p>Overdue Tasks:</p>
             <p className="pl-4 relative flex gap-2">
               <span className="absolute h-[70%] w-[0.2rem] left-[1px] top-1/2 translate-y-[-50%] rounded-[5px] bg-[#FF004F]"></span>
-              <span className="font-medium text-4xl text-[#333]">{pendingTasks.length}</span>
+              <span className="font-medium text-4xl text-[#333]">{overdue.length}</span>
             </p>
           </div>
         </div>
