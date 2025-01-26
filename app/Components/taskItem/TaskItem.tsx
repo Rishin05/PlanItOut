@@ -1,7 +1,9 @@
 import { useTasks } from "@/context/taskContext";
+import { item } from "@/utils/animations";
 import { edit, star, trash } from "@/utils/Icons";
 import { Task } from "@/utils/types";
 import { formatTime } from "@/utils/utilities";
+import { motion } from "framer-motion";
 import React from "react";
 interface TaskItemProps {
   task: Task;
@@ -24,7 +26,8 @@ function TaskItem({ task }: TaskItemProps) {
   const {getTask, openModelForEdit, deleteTask, modelMode} = useTasks();
 
   return (
-    <div className="h-[16rem] px-4 py-3 flex flex-col gap-4 bg-[#F6F5EF] rounded-md shadow-lg">
+    <motion.div className="h-[16rem] px-4 py-3 flex flex-col gap-4 bg-[#F6F5EF] rounded-md shadow-lg"
+    variants={item}>
       <div>
         <h4 className="text-2xl font-bold">{task.title}</h4>
         <p className="text-sm">{task.description}</p>
@@ -53,7 +56,7 @@ function TaskItem({ task }: TaskItemProps) {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

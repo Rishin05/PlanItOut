@@ -93,7 +93,7 @@ function Model() {
             className="bg-[#F9F9F9] p-2 rounded-md border"
             type="date"
             name="dueDate"
-            value={task.dueDate}
+            value={task.dueDate ? new Date(task.dueDate).toISOString().split('T')[0] : ''}
             onChange={(e) => handleInput("dueDate")(e)}
           />
         </div>
